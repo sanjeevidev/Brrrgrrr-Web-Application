@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Brrrgrrr - Build Your Own Burger</title>
+  <link rel="stylesheet" type="text/css" href="static/customize.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    
+    body {
+      margin-top:55px;
+      font-family: "Times New Roman", Georgia, Serif;}
+      h1, h2, h3, h4, h5, h6 {
+      font-family: "Playfair Display";
+      letter-spacing: 5px;
+  }
+    #background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.4;
+    }
+    #image-container {
+      width: 300px;
+      height: 300px;
+      overflow: hidden;
+    }
+    #total-price{
+      position:absolute;
+      top:150px;
+      left:850px;
+    }
+    #random-image {
+      width: 460px;
+      height: 460px;
+      object-fit: cover;
+      position:absolute;
+      top:280px;
+      left:850px;
+      border-radius:15px;
+    }
+    #text-container{
+      position:absolute;
+      top:195px;
+      left:850px;
+    }
+    #calculate-button{
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #calculate-button:hover {
+      background-color: #45a049;
+    }
+    #ingredient-list {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    #ingredient-list li {
+      flex-basis: 25%; /* Adjust this value to control the width of each item */
+      padding: 5px;
+      list-style: none;
+      box-sizing:border-box;
+    }
+    #ingredient-list img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+        <a href="home.html" class="w3-bar-item w3-button">Brrrgrrr 🍔</a>
+        <!-- Right-sided navbar links. Hide them on small screens -->
+        <div class="w3-right w3-hide-small">
+            <a href="menu.html" class="w3-bar-item w3-button">Menu</a>
+            <a href="customize.html" class="w3-bar-item w3-button">Customize</a>
+            <a href="http://127.0.0.1:5000" class="w3-bar-item w3-button">Blog</a>
+            <a href="about-us.html" class="w3-bar-item w3-button">About us</a>
+            <a href="contact.html" class="w3-bar-item w3-button">Contact</a>
+        </div>
+    </div>
+</div>
+  <h1 style="color:chocolate;text-align: center;">Brrrgrrr - Customise Your Own Burger 🍔</h1>
+
+  <div id="ingredients">
+    <h2 style="color:green;">Choose Ingredients 🧀</h2>
+    <ul id="ingredient-list">
+      <!-- Ingredient buttons will be dynamically populated -->
+    </ul>
+  </div>
+  <h2 style="color:green;">Selected Ingredients 🧀</h2>
+  <img id="background-image" src="img/bg-burger.jpg" alt="Background Image">
+  <div id="burger">
+    <ul id="burger-list">
+      <!-- Burger list will be dynamically populated -->
+    </ul>
+  </div>
+
+  <button id="calculate-button">Order</button>
+  <h2 id="total-price">Total Price: $0.00 🌯</h2>
+  <h1 id="text-container">po</h1>
+
+  <div id="image-container">
+    <img id="random-image">
+  </div>
+
+  <script>
+    const ingredients = [
+      { name: 'Bun', price: 1.50, imageUrl: 'img/Bun-bg.png' },
+      { name: 'Beef Patty', price: 3.00, imageUrl: 'img/Beef Patty.jpg' },
+      { name: 'Chicken Patty', price: 2.50, imageUrl: 'img/Chicken Patty.jpg' },
+      { name: 'Lettuce', price: 0.50, imageUrl: 'img/Lettuce.jpg' },
+      { name: 'Tomato', price: 0.75, imageUrl: 'img/Tomato.jpg' },
+      { name: 'Onion', price: 0.25, imageUrl: 'img/Onion.jpg' },
+      { name: 'Cheese', price: 1.00, imageUrl: 'img/Cheese-bg.png' },
+      { name: 'Pickles', price: 0.50, imageUrl: 'img/Pickles.jpg' },
+      { name: 'Mayonnaise', price: 0.50, imageUrl: 'img/Mayonnaise.jpg' },
+      { name: 'Ketchup', price: 0.50, imageUrl: 'img/Ketchup.jpg' },
+    ];
+    
+    const randomImageUrls = [
+      'img/burger-1.jpg',
+      'img/burger-2.jpg',
+      'img/burger-3.jpg',
+      'img/burger-4.jpg',
+    ];
+    
+    // DOM manipulation functions
+    function renderIngredients() {
+      const ingredientList = document.getElementById('ingredient-list');
+      ingredientList.innerHTML = '';
+
+      ingredients.forEach(ingredient => {
+        const li = document.createElement('li');
+        const img = document.createElement('img');
+        img.src = ingredient.imageUrl;
+        img.alt = ingredient.name;
+        img.addEventListener('click', selectIngredient(ingredient));
+        li.appendChild(img);
+        ingredientList.appendChild(li);
+      });
+    }
+
+    function renderBurger() {
+      const burgerList = document.getElementById('burger-list');
+      burgerList.innerHTML = '';
+
+      burger.forEach(ingredient => {
+        const li = document.createElement('li');
+        li.textContent = ingredient.name;
+        burgerList.appendChild(li);
+      });
+    }
+
+    function calculateTotalPrice() {
+      const totalPrice = burger.reduce((total, ingredient) => total + ingredient.price, 0);
+     return totalPrice.toFixed(2);
+    }
+
+    function displayRandomImage() {
+      const randomIndex = Math.floor(Math.random() * randomImageUrls.length);
+      const randomImageUrl = randomImageUrls[randomIndex];
+    
+      const randomImageElement = document.getElementById('random-image');
+      randomImageElement.src = randomImageUrl;
+    }
+
+    // Higher-order function to handle ingredient selection
+    function selectIngredient(ingredient) {
+      return function() {
+        burger.push(ingredient);
+        renderBurger();
+      };
+    }
+
+    const displayButton = document.getElementById('calculate-button');
+    const textContainer = document.getElementById('text-container');
+    const newText = 'Your Order 🍔!'; // Replace with your desired text
+
+    displayButton.addEventListener('click', function() {
+      textContainer.textContent = newText;
+    });
+
+    const calculateButton = document.getElementById('calculate-button');
+    calculateButton.addEventListener('click', () => {
+      const totalPriceElement = document.getElementById('total-price');
+      totalPriceElement.textContent = `Total Price: $${calculateTotalPrice()} 🌯`;
+
+      displayRandomImage();
+    });
+
+    let burger = [];
+
+    renderIngredients();
+    renderBurger();
+  </script>
+</body>
+</html>

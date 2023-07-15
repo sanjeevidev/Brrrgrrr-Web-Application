@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        body {
+            font-family: "Times New Roman", Georgia, Serif;}
+            h1, h2, h3, h4, h5, h6 {
+            font-family: "Playfair Display";
+            letter-spacing: 5px;
+        }
+        * {
+        box-sizing: border-box;
+        }
+        
+        img{
+            border-radius: 25px;
+            position: absolute;
+            left:150px;
+        }
+        input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+        }
+
+        input[type=submit] {
+        background-color: #04AA6D;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+        background-color: #45a049;
+        }
+
+        .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 10px;
+        }
+
+        .column {
+        float: left;
+        width: 50%;
+        margin-top: 6px;
+        padding: 20px;
+        }
+
+        .row:after {
+        content: "";
+        display: table;
+        clear: both;
+        }
+
+        @media screen and (max-width: 600px) {
+        .column, input[type=submit] {
+            width: 100%;
+            margin-top: 0;
+            }
+        }
+    </style>
+    <script>
+        function showMessage() {
+        alert("Thanks for Contacting 🍔");
+        }
+    </script>
+</head>
+<body>
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+            <a href="home.html" class="w3-bar-item w3-button">Brrrgrrr 🍔</a>
+            <!-- Right-sided navbar links. Hide them on small screens -->
+            <div class="w3-right w3-hide-small">
+                <a href="menu.html" class="w3-bar-item w3-button">Menu</a>
+                <a href="customize.html" class="w3-bar-item w3-button">Customize</a>
+                <a href="http://127.0.0.1:5000" class="w3-bar-item w3-button">Blog</a>
+                <a href="about-us.html" class="w3-bar-item w3-button">About us</a>
+                <a href="contact.html" class="w3-bar-item w3-button">Contact</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div style="text-align:center">
+            <h2>Contact Us</h2>
+            <p>Swing by for a bite of Burger or leave us a message:</p>
+        </div>
+        <div class="row">
+            <div class="column">
+                <img src="img/contact-burger.jpg" style="width:475px" height="600px">
+          </div>
+          <div class="column">
+            <form>
+                <label for="fname">First Name</label>
+                    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+                <label for="lname">Last Name</label>
+                    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                <label for="country">Country</label>
+                    <select id="country" name="country">
+                        <option value="india">India</option>
+                        <option value="uk">UK</option>
+                        <option value="usa">USA</option>
+                    </select>
+                <label for="subject">Subject</label>
+                    <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+                    <input type="submit" value="Submit" onclick="showMessage()">
+            </form>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

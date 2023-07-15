@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Blog</title>
+    <style>
+        .post-container {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .post-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .post-author {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .post-content {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .post-details {
+            font-size: 14px;
+            color: #777;
+        }
+        .action-buttons {
+            margin-top: 10px;
+        }
+        .action-buttons button {
+            margin-right: 10px;
+        }
+        .search-form {
+            margin-bottom: 20px;
+        }
+        .post-image {
+            max-width: 300px;
+            max-height: 200px;
+            margin-bottom: 10px;
+        }
+        .menu {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .menu button {
+            margin-left: 10px;
+        }
+        .btn{
+            background-color:#FFA500;  
+            border-radius: 5px;
+            color: white;
+            padding: .8em;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color:lime;
+            color: White;
+        }
+        .sea{
+            border-radius:15px;
+        }
+        .edit-button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+          }
+          .edit-button:hover {
+            background-color: #45a049; /* Darker green */
+        }
+        .delete-button {
+            background-color: #f44336; /* Red */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }  
+        .delete-button:hover {
+            background-color: #d32f2f; /* Darker red */
+        }                   
+        .btn-icon{
+            display: inline-flex;
+            height: 35px;
+            padding: 0;
+            background: #28a745;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            overflow: hidden;
+            font-family: 'Quicksand',sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .btn-icon:hover{
+            background: #1e7e34;
+        }
+        .btn-icon:active{
+            background: #28a745;
+        }
+        .button__text, .button__icon{
+            display: inline-flex;
+            align-items: center;
+            padding: 0 24px;
+            color: #fff;
+            height: 100%;
+        }
+        .button__icon{
+            font-size: 1.5em;
+            background: rgba(0, 0, 0, 0.08);
+        }
+        .btn-create{
+            display: inline-flex;
+            height: 35px;
+            padding: 0;
+            background: #007bff;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            overflow: hidden;
+            font-family: 'Quicksand',sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .btn-create:hover{
+            background: #0056b3;
+        }
+        .btn-create:active{
+            background: #007bff;
+        }
+        .button__text, .button__icon{
+            display: inline-flex;
+            align-items: center;
+            padding: 0 20px;
+            color: #fff;
+            height: 100%;
+        }
+        .button__icon{
+            font-size: 1.5em;
+            background: rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        {% if 'user_id' in session %}
+            <form action="{{ url_for('logout') }}" method="GET">
+                <button type="submit" class="btn loo">Logout</button>
+            </form>
+        {% else %}
+            <form action="{{ url_for('login') }}" method="GET">
+                <button type="submit" class="btn log">Login</button>
+            </form>
+        {% endif %}
+        <form action="{{ url_for('register') }}" method="GET">
+            <button type="submit" class="btn reg">Register</button>
+        </form>
+    </div>
+
+    <h1>Welcome to Blog</h1>
+
+    <div class="search-form">
+        <form action="{{ url_for('index') }}" method="GET">
+            <input type="text" name="search" placeholder="Search by Title" class="sea" value="{{ request.args.get('search', '') }}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    {% if search_query %}
+        <h2>Search Results for "{{ search_query }}":</h2>
+    {% endif %}
+
+    {% if posts %}
+        {% for post in posts %}
+        <div class="post-container">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <p class="post-author">By: {{ post.author.username }}</p>
+            <p class="post-content">{{ post.content }}</p>
+
+            {% if post.image %}
+            <img src="{{ url_for('static', filename='uploads/' + post.image) }}" alt="Post Image" class="post-image">
+            {% endif %}
+
+            <p class="post-details">Created at: {{ post.created_at }}</p>
+            <div class="action-buttons">
+                <form action="{{ url_for('edit_post', post_id=post.id) }}" method="GET" style="display:inline">
+                    <button type="submit" class="edit-button">Edit</button>
+                </form>
+                <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" style="display:inline">
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        {% if search_query %}
+            <p>No posts found for "{{ search_query }}".</p>
+        {% else %}
+            <p>No posts available.</p>
+        {% endif %}
+    {% endif %}
+
+    <div class="action-buttons">
+        <form action="{{ url_for('create_post') }}" method="GET" style="display:inline">
+            <button type="submit" class="btn-create">
+                <span class="button__text">Create new Post</span>
+                <span class="button__icon">
+                    <ion-icon name="create-outline"></ion-icon>
+                </span>
+            </button>
+        </form>
+        <form action="{{ url_for('export_to_excel') }}" method="GET" style="display:inline">
+            <button type="submit" class="btn-icon">
+                <span class="button__text">Export to Excel</span>
+                <span class="button__icon">
+                    <ion-icon name="download-outline"></ion-icon>
+                </span>
+            </button>
+        </form>
+        <form action="{{ url_for('export_to_word') }}" method="GET" style="display:inline">
+            <button type="submit" class="btn-icon">
+                <span class="button__text">Export to Word</span>
+                <span class="button__icon">
+                    <ion-icon name="download-outline"></ion-icon>
+                </span>
+            </button>
+        </form>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

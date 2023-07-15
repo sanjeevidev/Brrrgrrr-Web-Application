@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+            margin-right:20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px; /* Add margin on the right side */
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Post</h2>
+        
+        <form action="{{ url_for('edit_post', post_id=post.id) }}" method="POST">
+            <label for="title">Title:</label><br>
+            <input type="text" name="title" value="{{ post.title }}" required><br><br>
+            
+            <label for="content">Content:</label><br>
+            <textarea name="content" rows="5" required>{{ post.content }}</textarea><br><br>
+            
+            <input type="submit" value="Save">
+        </form>
+    </div>
+</body>
+</html>

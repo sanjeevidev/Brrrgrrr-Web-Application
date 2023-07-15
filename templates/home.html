@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+body {font-family: "Times New Roman", Georgia, Serif;}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+.button {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .button a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="w3-top">
+    <div class="w3-bar w3-white w3-padding w3-card" style="letter-spacing:4px;">
+        <a href="#home" class="w3-bar-item w3-button">Brrrgrrr 🍔</a>
+        <!-- Menu button for small screens -->
+        <div class="w3-right w3-hide-medium w3-hide-large">
+            <a href="javascript:void(0);" class="w3-bar-item w3-button w3-right" onclick="toggleMenu()">☰</a>
+        </div>
+        <!-- Right-sided navbar links -->
+        <div id="navLinks" class="w3-right w3-hide-small">
+            <a href="menu.html" class="w3-bar-item w3-button">Menu</a>
+            <a href="customize.html" class="w3-bar-item w3-button">Customize</a>
+            <a href="http://127.0.0.1:5000" class="w3-bar-item w3-button">Blog</a>
+            <a href="about-us.html" class="w3-bar-item w3-button">About us</a>
+            <a href="contact.html" class="w3-bar-item w3-button">Contact</a>
+        </div>
+    </div>
+  </div>
+
+    <header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px" id="home">
+    <img class="w3-image" src="img\hamburger.jpg" alt="Hamburger Catering" width="1600" height="800">
+    <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+        <button class="button"><a href="#menu">Menu Here</a></button>
+    </div>
+    </header>
+
+    <div class="w3-row w3-padding-64" id="menu">
+        <div class="w3-col l6 w3-padding-large">
+        <h1 class="w3-center">Our Menu</h1><br>
+        <h4>Classic Burger</h4>
+        <p class="w3-text-grey">Juicy beef patty with lettuce, tomato, onion, and pickles $9.99</p><br>
+        
+        <h4>Cheeseburger Deluxe</h4>
+        <p class="w3-text-grey">Classic burger with melted cheese, bacon, and special sauce $11.99</p><br>
+        
+        <h4>Spicy Chicken Burger</h4>
+        <p class="w3-text-grey">Crispy chicken patty with lettuce, tomato, and spicy mayo $10.99</p><br>
+        
+        <h4>Mushroom Swiss Burger</h4>
+        <p class="w3-text-grey">Beef patty with sautéed mushrooms, melted Swiss cheese, and garlic aioli $12.99</p><br>
+        
+        <h4>Veggie Burger</h4>
+        <p class="w3-text-grey">Grilled vegetable patty with lettuce, tomato, onion, and avocado $9.99</p>    
+        </div>
+        
+        <div class="w3-col l6 w3-padding-large">
+        <img src="img/home-burger.jpg" class="w3-round w3-image w3-opacity-min" alt="Menu" style="width:550px; height:700px; border-radius:20px;">
+        </div>
+    </div>
+  <script>
+        function toggleMenu() {
+            var sideMenu = document.getElementById("sideMenu");
+            if (sideMenu.style.display === "" || sideMenu.style.display === "none") {
+                sideMenu.style.display = "block";
+            } else {
+                sideMenu.style.display = "none";
+            }
+        }
+    </script>
+    
+</body>
+</html>
