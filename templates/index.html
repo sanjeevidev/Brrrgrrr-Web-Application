@@ -4,11 +4,15 @@
     <title>My Blog</title>
     <style>
         .post-container {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 10px;
+            display: inline-block;
+            border-radius: 10px;
+            padding: 20px;
             margin-bottom: 20px;
-        }
+            box-sizing: border-box;
+            width: max-content;
+            background: linear-gradient(145deg, #e0e0e0, #f8f8f8);
+            box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+        }  
         .post-title {
             font-size: 18px;
             font-weight: bold;
@@ -26,6 +30,12 @@
         .post-details {
             font-size: 14px;
             color: #777;
+        }
+        .action-button{
+            position:absolute;
+            display:flex;
+            top:20px;
+            gap:20px;
         }
         .action-buttons {
             margin-top: 10px;
@@ -50,15 +60,26 @@
             margin-left: 10px;
         }
         .btn{
-            background-color:#FFA500;  
+            background-color: #6f42c1;
+            border: none;
             border-radius: 5px;
             color: white;
-            padding: .8em;
+            padding: 10px 20px;
+            text-align: center;
             text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
         }
         .btn:hover {
-            background-color:lime;
-            color: White;
+            background-color: #ffc107;
+            color: white;
+        }
+        .btn:focus {
+            outline: none;
+        }
+        .btn:active {
+            background-color: #0056b3;
         }
         .sea{
             border-radius:15px;
@@ -74,8 +95,8 @@
             font-size: 16px;
             border-radius: 4px;
             cursor: pointer;
-          }
-          .edit-button:hover {
+        }
+        .edit-button:hover {
             background-color: #45a049; /* Darker green */
         }
         .delete-button {
@@ -192,11 +213,6 @@
             <h2 class="post-title">{{ post.title }}</h2>
             <p class="post-author">By: {{ post.author.username }}</p>
             <p class="post-content">{{ post.content }}</p>
-
-            {% if post.image %}
-            <img src="{{ url_for('static', filename='uploads/' + post.image) }}" alt="Post Image" class="post-image">
-            {% endif %}
-
             <p class="post-details">Created at: {{ post.created_at }}</p>
             <div class="action-buttons">
                 <form action="{{ url_for('edit_post', post_id=post.id) }}" method="GET" style="display:inline">
@@ -207,6 +223,7 @@
                 </form>
             </div>
         </div>
+        
         {% endfor %}
     {% else %}
         {% if search_query %}
@@ -216,7 +233,7 @@
         {% endif %}
     {% endif %}
 
-    <div class="action-buttons">
+    <div class="action-button">
         <form action="{{ url_for('create_post') }}" method="GET" style="display:inline">
             <button type="submit" class="btn-create">
                 <span class="button__text">Create new Post</span>
