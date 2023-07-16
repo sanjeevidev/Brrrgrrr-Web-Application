@@ -43,6 +43,9 @@
         .action-buttons button {
             margin-right: 10px;
         }
+        .blog{
+            color:#6f42c1;
+        }
         .search-form {
             margin-bottom: 20px;
         }
@@ -81,8 +84,8 @@
         .btn:active {
             background-color: #0056b3;
         }
-        .sea{
-            border-radius:15px;
+        .sea,.sub{
+            border-radius:7px;
         }
         .edit-button {
             background-color: #4CAF50; /* Green */
@@ -194,12 +197,12 @@
         </form>
     </div>
 
-    <h1 style="font-family:Georgia;">Welcome to Blog</h1>
+    <h1 style="font-family:Georgia;" class="blog">Welcome to Blog</h1>
 
     <div class="search-form">
         <form action="{{ url_for('index') }}" method="GET">
             <input type="text" name="search" placeholder="Search by Title" class="sea" value="{{ request.args.get('search', '') }}">
-            <button type="submit">Search</button>
+            <button type="submit" class="sub">Search</button>
         </form>
     </div>
 
